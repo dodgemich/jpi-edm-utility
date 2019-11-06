@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--<PreferenceCategory android:title="JPI Configuration">-->
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/pref_jpi_speed_key"
+        android:summaryOff="Fast?=N in PROGRAM menu"
+        android:summaryOn="Fast?=Y in PROGRAM menu"
+        android:title="@string/text_jpi_speed"/>
+
+<!--    <ListPreference
+        android:defaultValue="pref_color_red_value"
+        android:entries="@array/pref_color_option_labels"
+        android:entryValues="@array/pref_color_option_values"
+        android:key="@string/pref_color_key"
+        android:title="@string/change_text_color" />-->
+
+    <EditTextPreference
+        android:key="@string/pref_savvy_api_token_key"
+        android:title="@string/text_savvy_api_token"/>
+
+    <ListPreference
+        android:key="@string/pref_savvy_aircraft_key"
+        android:title="@string/text_savvy_aircraft"
+        android:defaultValue="#00FFFF"
+        android:entries="@array/pref_savvy_tailnbr_labels"
+        android:entryValues="@array/pref_savvy_tailnbr_values"
+        android:summary="Select target Aircraft"
+        />
+
+
+</PreferenceScreen>

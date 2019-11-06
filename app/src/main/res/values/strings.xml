@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">JPI EDM Utility</string>
+    <string name="action_settings">Settings</string>
+
+
+    <string name="text_savvy_api_token">Savvy - API Token</string>
+    <string name="text_savvy_aircraft">Savvy - Aircraft</string>
+    <string name="text_jpi_speed">JPI Baud Rate - Fast</string>
+
+
+    <!-- Key name for storing size in SharedPreferences -->
+    <string name="pref_jpi_speed_key" translatable="false">jpi_speed</string>
+    <string name="pref_savvy_api_token_key" translatable="false">savvy_token</string>
+    <string name="pref_savvy_aircraft_key" translatable="false">savvy_aircraft</string>
+
+
+    <string name="pref_startstop_button_key">start_stop</string>
+
+
+
+
+</resources>
