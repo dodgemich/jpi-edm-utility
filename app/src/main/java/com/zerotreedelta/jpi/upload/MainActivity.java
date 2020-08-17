@@ -50,6 +50,9 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.RetryPolicy;
+
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
 
@@ -252,7 +255,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             mSerialIoManager = new SerialInputOutputManager(port, mListener, new FileOutputStream(outputFile));
             mExecutor.submit(mSerialIoManager);
 
-            consoleView.append("\nListening for JPI\nPress STEP now to being transfer \n");
+            consoleView.append("\nListening for JPI\nPress STEP now to begin transfer \n");
 
 
         } catch (IOException e) {
@@ -305,12 +308,13 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         }
         updateConsoleStatus("\nSavvy upload starting\n");
 
-//
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-
         String url ="https://apps.savvyaviation.com/files/upload_files_api/"+aircraft+"/";
 
         VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
+
+
+
             @Override
             public void onResponse(NetworkResponse response) {
                 String resultResponse = new String(response.data);
@@ -348,45 +352,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             }
         };
 
-
-
-
-
-//        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        try{
-//                            JSONArray json = new JSONArray(response);
-//                            if(json.length()==0){
-//                                //empty list = no aircraft set
-//                                noAircraft.show();
-//                            }
-//                            ListPreference aircraftPref = (ListPreference) findPreference(getString(R.string.pref_savvy_aircraft_key));
-//                            updateAircraftList(token, aircraftPref);
-//
-//                            success.show();
-//                        } catch (JSONException e){
-//                            err.show();
-//                        }
-//
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                err.show();
-//            }
-//
-//
-//        }){
-//            @Override
-//            protected Map<String,String> getParams(){
-//                Map<String,String> params = new HashMap<>();
-//                params.put("token", token);
-//                return params;
-//            }
-//
-//        };
+        multipartRequest.setRetryPolicy(new DefaultRetryPolicy(
+                30000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         queue.add(multipartRequest);
 
@@ -396,7 +365,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         int size = (int) f.length();
         byte bytes[] = new byte[size];
         byte tmpBuff[] = new byte[size];
-        FileInputStream fis= new FileInputStream(f);;
+        FileInputStream fis= new FileInputStream(f);
         try {
 
             int read = fis.read(bytes, 0, size);
