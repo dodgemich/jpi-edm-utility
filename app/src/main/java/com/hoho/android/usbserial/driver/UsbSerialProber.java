@@ -23,10 +23,12 @@ package com.hoho.android.usbserial.driver;
 
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
+import android.widget.TextView;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -64,15 +66,25 @@ public class UsbSerialProber {
      * @param usbManager
      * @return a list, possibly empty, of all compatible drivers
      */
-    public List<UsbSerialDriver> findAllDrivers(final UsbManager usbManager) {
+    public List<UsbSerialDriver> findAllDrivers(final UsbManager usbManager, TextView consoleView) {
         final List<UsbSerialDriver> result = new ArrayList<UsbSerialDriver>();
 
-        for (final UsbDevice usbDevice : usbManager.getDeviceList().values()) {
+        Collection<UsbDevice> deviceList = usbManager.getDeviceList().values();
+        if(deviceList.size()==0){
+            consoleView.append("No USB devices found attached.\n");
+            return null;
+        }
+
+        for (final UsbDevice usbDevice : deviceList) {
+            final int vendorId = usbDevice.getVendorId();
+            final int productId = usbDevice.getProductId();
+            consoleView.append("Checking USB serial device manufacturer:"+vendorId+"-"+productId+"\n");
             final UsbSerialDriver driver = probeDevice(usbDevice);
             if (driver != null) {
                 result.add(driver);
             }
         }
+
         return result;
     }
     
