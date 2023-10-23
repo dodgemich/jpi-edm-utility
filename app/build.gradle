@@ -5,9 +5,9 @@ android {
     defaultConfig {
         applicationId "com.zerotreedelta.jpi.upload"
         minSdkVersion 19
-        targetSdkVersion 29
-        versionCode 8
-        versionName "8"
+        targetSdkVersion 33
+        versionCode 101
+        versionName "1.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

@@ -8,6 +8,7 @@ import android.hardware.usb.UsbManager;
 import android.preference.PreferenceManager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Environment;
 import androidx.preference.ListPreference;
 
 import android.view.Menu;
@@ -246,7 +247,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             Date current = new Date();
             SimpleDateFormat dateFileName = new SimpleDateFormat("yyyymmdd-HHmmss");
 
-            outputFile = new File(getApplicationContext().getExternalFilesDir(null), dateFileName.format(current)+".JPI");
+            outputFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), dateFileName.format(current)+".JPI");
 
             mSerialIoManager = new SerialInputOutputManager(port, mListener, new FileOutputStream(outputFile));
             mExecutor.submit(mSerialIoManager);
@@ -305,7 +306,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         updateConsoleStatus("\nSavvy upload starting\n");
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url ="https://apps.savvyaviation.com/files/upload_files_api/"+aircraft+"/";
+        String url ="https://apps.savvyaviation.com/upload_files_api/"+aircraft+"/";
 
         VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
 

@@ -14,7 +14,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.zerotreedelta.jpi.upload.MainActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,6 +33,7 @@
         <activity
             android:name="com.zerotreedelta.jpi.upload.SettingsActivity"
             android:label="@string/action_settings"
+            android:exported="false"
             android:parentActivityName="com.zerotreedelta.jpi.upload.MainActivity">
 
             <meta-data
