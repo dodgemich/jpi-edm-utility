@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             consoleView.append("Adapter connected.\n");
 
             Date current = new Date();
-            SimpleDateFormat dateFileName = new SimpleDateFormat("yyyymmdd-HHmmss");
+            SimpleDateFormat dateFileName = new SimpleDateFormat("yyyy-MM-dd_HHmmss");
 
             outputFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), dateFileName.format(current)+".JPI");
 
@@ -382,5 +382,4 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         return bytes;
     }
-
 }
