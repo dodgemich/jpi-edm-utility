@@ -52,7 +52,7 @@ public class SerialInputOutputManager implements Runnable {
 
     private boolean hasStarted = false;
 
-//    private final ByteBuffer mReadBuffer = ByteBuffer.allocate(BUFSIZ);
+    //    private final ByteBuffer mReadBuffer = ByteBuffer.allocate(BUFSIZ);
     private OutputStream outputStream ;
 
     private enum State {
@@ -151,7 +151,7 @@ public class SerialInputOutputManager implements Runnable {
             final Listener listener = getListener();
 
             if (listener != null) {
-              listener.onRunError(e);
+                listener.onRunError(e);
             }
         } finally {
             synchronized (this) {
