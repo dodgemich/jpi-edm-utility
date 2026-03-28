@@ -20,9 +20,8 @@ jobs:
       - name: Decode Keystore
         run: |
           echo "${{ secrets.KEYSTORE }}" | base64 --decode > release.keystore
-          cat release.keystore
           ls -alh
-
+          pwd
 
       - name: Build & Sign AAB
         run: gradle bundleRelease # Ensure your build.gradle handles signing via env vars
