@@ -60,7 +60,9 @@ import okhttp3.RequestBody;
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private enum UsbPermission { Unknown, Requested, Granted, Denied }
-    private static final String INTENT_ACTION_GRANT_USB = BuildConfig.APPLICATION_ID + ".GRANT_USB";
+    // private static final String INTENT_ACTION_GRANT_USB = BuildConfig.APPLICATION_ID + ".GRANT_USB";
+    private static final String INTENT_ACTION_GRANT_USB = "com.zerotreedelta.jpi.upload.GRANT_USB";
+
 
     private final ExecutorService mExecutor = Executors.newSingleThreadExecutor();
     private SerialInputOutputManager mSerialIoManager;
