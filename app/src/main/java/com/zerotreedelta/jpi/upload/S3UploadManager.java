@@ -43,7 +43,7 @@ public class S3UploadManager {
     // STEP 1: Get Aircraft ID
     public void startUploadProcess() {
         String getAircraftUrl = "https://apps.savvyaviation.com/get-aircraft/";
-        consoleView.append("\n* Verifying aircraft from Savvy\n");
+        consoleView.append("* Verifying aircraft from Savvy\n");
         StringRequest aircraftRequest = new StringRequest(Request.Method.POST, getAircraftUrl,
                 response -> {
                     try {
@@ -82,7 +82,7 @@ public class S3UploadManager {
     // STEP 2: Get Upload URL & S3 Credentials
     private void getUploadUrl(String savvyAircraftId) {
         String getUploadUrl = "https://apps.savvyaviation.com/request_upload_url/" + savvyAircraftId + "/";
-        consoleView.append("\n* Getting temporary upload url\n");
+        consoleView.append("* Getting temporary upload url\n");
         StringRequest uploadUrlReq = new StringRequest(Request.Method.POST, getUploadUrl,
                 response -> {
                     try {
@@ -103,7 +103,7 @@ public class S3UploadManager {
 
                         String fileId = uploadUrlJson.getString("id");
 
-                        consoleView.append("\n* Checking upload status: \n");
+                        consoleView.append("* Checking upload status: \n");
                         checkUploadStatus(queue, token, fileId, 1);
 
                     } catch (Exception e) {
@@ -127,7 +127,7 @@ public class S3UploadManager {
     private void uploadToS3(Map<String, String> s3Params, byte[] fileData, String fileName) {
         String s3Url = "https://savvyanalysis.s3.amazonaws.com/";
 
-        consoleView.append("\n* Uploading to Savvy \n");
+        consoleView.append("* Uploading to Savvy \n");
         VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, s3Url,
                 response -> {
                     String resultResponse = new String(response.data);

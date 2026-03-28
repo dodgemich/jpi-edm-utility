@@ -196,7 +196,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     private void serialFun(){
         TextView consoleView = (TextView) findViewById(R.id.consoleText);
-        consoleView.setText("\n\n\nStarting load...\n");
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         final Boolean isFast = sharedPreferences.getBoolean(getString(R.string.pref_jpi_speed_key), false);
@@ -308,6 +307,12 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
 
 
+
+
+
+
+
+
     private void submitToSavvy() throws IOException {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -325,5 +330,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         S3UploadManager s3UploadManager = new S3UploadManager(queue, (TextView) findViewById(R.id.consoleText), token, aircraft, outputFile);
         s3UploadManager.startUploadProcess();
     }
+
 
 }
