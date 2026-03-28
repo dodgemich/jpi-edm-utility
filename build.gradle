@@ -15,6 +15,13 @@ buildscript {
     }
 }
 
+android {
+    buildFeatures {
+        buildConfig true
+    }
+}
+
+
 allprojects {
     repositories {
         google()
