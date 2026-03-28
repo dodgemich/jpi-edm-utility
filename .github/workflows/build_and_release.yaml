@@ -27,6 +27,6 @@ jobs:
         run: gradle bundleRelease # Ensure your build.gradle handles signing via env vars
         env:
           KEYSTORE_PATH: /home/runner/work/jpi-edm-utility/jpi-edm-utility/release.keystore
-          KEYSTORE_PASSWORD: adsfs
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
