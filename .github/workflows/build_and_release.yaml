@@ -1,0 +1,19 @@
+name: Deploy to Play Store
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build & Sign AAB
+        run: ./gradlew bundleRelease # Ensure your build.gradle handles signing via env vars
