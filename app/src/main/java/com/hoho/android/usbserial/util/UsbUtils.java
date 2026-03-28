@@ -1,19 +1,33 @@
-package com.hoho.android.usbserial;
+package com.hoho.android.usbserial.util;
 
-/**
- * Static container of information about this library.
- */
-public final class BuildInfo {
+import android.hardware.usb.UsbDeviceConnection;
 
-    /**
-     * The current version of this library. Values are of the form
-     * "major.minor.micro[-suffix]". A suffix of "-pre" indicates a pre-release
-     * of the version preceeding it.
-     */
-    public static final String VERSION = "0.2.0-pre";
+import java.util.ArrayList;
 
-    private BuildInfo() {
-        throw new IllegalStateException("Non-instantiable class.");
+public class UsbUtils {
+
+    private UsbUtils() {
     }
+
+    public static  ArrayList<byte[]> getDescriptors(UsbDeviceConnection connection) {
+        ArrayList<byte[]> descriptors = new ArrayList<>();
+        byte[] rawDescriptors = connection.getRawDescriptors();
+        if (rawDescriptors != null) {
+            int pos = 0;
+            while (pos < rawDescriptors.length) {
+                int len = rawDescriptors[pos] & 0xFF;
+                if (len == 0)
+                    break;
+                if (pos + len > rawDescriptors.length)
+                    len = rawDescriptors.length - pos;
+                byte[] descriptor = new byte[len];
+                System.arraycopy(rawDescriptors, pos, descriptor, 0, len);
+                descriptors.add(descriptor);
+                pos += len;
+            }
+        }
+        return descriptors;
+    }
+
 
 }
