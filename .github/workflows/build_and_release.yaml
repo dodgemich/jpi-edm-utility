@@ -18,4 +18,4 @@ jobs:
         uses: gradle/actions/setup-gradle@v5
 
       - name: Build & Sign AAB
-        run: ./gradlew bundleRelease # Ensure your build.gradle handles signing via env vars
+        run: gradle bundleRelease # Ensure your build.gradle handles signing via env vars
