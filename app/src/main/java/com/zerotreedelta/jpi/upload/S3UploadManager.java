@@ -2,6 +2,7 @@ package com.zerotreedelta.jpi.upload;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -28,10 +29,11 @@ public class S3UploadManager {
     private String savedSavvyAircraftId;
 
     private TextView consoleView;
+    private ScrollView scrollView;
     private File jpiFile;
     private String fileName;
 
-    public S3UploadManager(RequestQueue queue, TextView consoleView, String token, String savedSavvyAircraftId, File file) {
+    public S3UploadManager(RequestQueue queue, TextView consoleView, ScrollView scrollView, String token, String savedSavvyAircraftId, File file) {
         this.queue = queue;
         this.token = token;
         this.savedSavvyAircraftId = savedSavvyAircraftId;
@@ -43,7 +45,7 @@ public class S3UploadManager {
     // STEP 1: Get Aircraft ID
     public void startUploadProcess() {
         String getAircraftUrl = "https://apps.savvyaviation.com/get-aircraft/";
-        consoleView.append("* Verifying aircraft from Savvy\n");
+        updateConsoleStatus("* Verifying aircraft from Savvy\n");
         StringRequest aircraftRequest = new StringRequest(Request.Method.POST, getAircraftUrl,
                 response -> {
                     try {
@@ -60,11 +62,11 @@ public class S3UploadManager {
                         if (savvyAircraftId != null) {
                             getUploadUrl(savvyAircraftId); // Trigger Step 2
                         } else {
-                            consoleView.append("No matching aircraft found from settings\n");
+                            updateConsoleStatus("No matching aircraft found from settings\n");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
-                        consoleView.append(e.getMessage());
+                        updateConsoleStatus(e.getMessage());
                     }
                 },
                 error -> error.printStackTrace()) {
@@ -82,7 +84,7 @@ public class S3UploadManager {
     // STEP 2: Get Upload URL & S3 Credentials
     private void getUploadUrl(String savvyAircraftId) {
         String getUploadUrl = "https://apps.savvyaviation.com/request_upload_url/" + savvyAircraftId + "/";
-        consoleView.append("* Getting temporary upload url\n");
+        updateConsoleStatus("* Getting temporary upload url\n");
         StringRequest uploadUrlReq = new StringRequest(Request.Method.POST, getUploadUrl,
                 response -> {
                     try {
@@ -103,7 +105,7 @@ public class S3UploadManager {
 
                         String fileId = uploadUrlJson.getString("id");
 
-                        consoleView.append("* Checking upload status: \n");
+                        updateConsoleStatus("* Checking upload status: \n");
                         checkUploadStatus(queue, token, fileId, 1);
 
                     } catch (Exception e) {
@@ -127,7 +129,7 @@ public class S3UploadManager {
     private void uploadToS3(Map<String, String> s3Params, byte[] fileData, String fileName) {
         String s3Url = "https://savvyanalysis.s3.amazonaws.com/";
 
-        consoleView.append("* Uploading to Savvy \n");
+        updateConsoleStatus("* Uploading to Savvy \n");
         VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, s3Url,
                 response -> {
                     String resultResponse = new String(response.data);
@@ -159,7 +161,7 @@ public class S3UploadManager {
     public void checkUploadStatus(final RequestQueue requestQueue, final String token, final String fileId, final int attemptCount) {
         // Replicate the standard loop condition (i < 6)
         if (attemptCount >= 10) {
-            consoleView.append("\nMax attempts reached. Stopping polling.");
+            updateConsoleStatus("\nMax attempts reached. Stopping polling.");
             return;
         }
 
@@ -173,7 +175,7 @@ public class S3UploadManager {
                         try {
                             JSONObject statusJson = new JSONObject(response);
                             String currentStatus = statusJson.getString("status");
-                            consoleView.append(" > "+ currentStatus + "\n");
+                            updateConsoleStatus(" > "+ currentStatus + "\n");
                             List<String> nonFinalStatuses = Arrays.asList("init", "waiting_for_file_upload", "compute_hash_digest", "parsing");
 
                             if (nonFinalStatuses.contains(currentStatus)) {
@@ -186,7 +188,7 @@ public class S3UploadManager {
                                 }, 5000);
                             } else {
                                 // Final status reached, break the "loop" equivalent
-                                consoleView.append("\nSavvy final status: " + currentStatus);
+                                updateConsoleStatus("\nSavvy final status: " + currentStatus);
                                 // Do your success handling here
                             }
                         } catch (JSONException e) {
@@ -247,6 +249,18 @@ public class S3UploadManager {
         return bytes;
     }
 
+
+
+
+    private void updateConsoleStatus(String data) {
+        consoleView.append(data);
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.fullScroll(View.FOCUS_DOWN);
+            }
+        });
+    }
 
 
 }

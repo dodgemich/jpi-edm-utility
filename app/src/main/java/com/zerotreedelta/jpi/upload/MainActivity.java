@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -94,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                         public void run() {
                             try {
                                 TextView consoleView = (TextView) findViewById(R.id.consoleText);
-                                consoleView.append("File saved to : \n"+outputFile.getAbsolutePath()+"\n");
+                                updateConsoleStatus("File saved to : \n"+outputFile.getAbsolutePath()+"\n");
                                 MainActivity.this.submitToSavvy();
                             } catch(IOException e){
 
@@ -108,7 +109,16 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     private void updateConsoleStatus(String data) {
         TextView consoleView = (TextView) findViewById(R.id.consoleText);
+        ScrollView scrollView = (ScrollView) findViewById(R.id.scroll);
         consoleView.append(data);
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.fullScroll(View.FOCUS_DOWN);
+            }
+        });
+
+
     }
 
 
@@ -200,36 +210,36 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         if(isFast){
             baud = 19200;
         }
-        consoleView.append("\nUsing speed of : "+baud+"\n");
-        consoleView.append("NOTE : JPI must be set to Fast?="+(isFast?"Y":"N")+"\n\n");
+        updateConsoleStatus("Using speed of : "+baud+"\n");
+        updateConsoleStatus("NOTE : JPI must be set to Fast?="+(isFast?"Y":"N")+"\n\n");
 
         // Find all available drivers from attached devices.
         UsbManager manager = (UsbManager) getSystemService(Context.USB_SERVICE);
         List<UsbSerialDriver> availableDrivers = UsbSerialProber.getDefaultProber().findAllDrivers(manager);
         if(availableDrivers==null) {
-            consoleView.append("No USB-serial adapters connected, exiting.\n");
+            updateConsoleStatus("No USB-serial adapters connected, exiting.\n");
             final ToggleButton button = findViewById(R.id.start_stop);
             button.setChecked(false);
             return;
         } else if (availableDrivers.isEmpty()) {
-            consoleView.append("No compatible USB-serial adapters, exiting.\n");
+            updateConsoleStatus("No compatible USB-serial adapters, exiting.\n");
             final ToggleButton button = findViewById(R.id.start_stop);
             button.setChecked(false);
             return;
         } else {
-            consoleView.append("Adapter found.\n");
+            updateConsoleStatus("Adapter found.\n");
         }
 
 // Open a connection to the first available driver.
         UsbSerialDriver driver = availableDrivers.get(0);
-        consoleView.append("Adapter Info: \n");
-        consoleView.append("* Manufacturer: "+driver.getDevice().getManufacturerName() +"\n");
-        consoleView.append("* Name: "+driver.getDevice().getDeviceName() +"\n");
-        consoleView.append("* Id: "+driver.getDevice().getProductId() +"\n");
+        updateConsoleStatus("Adapter Info: \n");
+        updateConsoleStatus("* Manufacturer: "+driver.getDevice().getManufacturerName() +"\n");
+        updateConsoleStatus("* Name: "+driver.getDevice().getDeviceName() +"\n");
+        updateConsoleStatus("* Id: "+driver.getDevice().getProductId() +"\n");
 
         UsbDeviceConnection connection = manager.openDevice(driver.getDevice());
 //        if (connection == null) {
-//            consoleView.append("Error connecting\n");
+//            updateConsoleStatus("Error connecting\n");
 //            manager.requestPermission(driver.getDevice(), null);
 ////            // You probably need to call UsbManager.requestPermission(driver.getDevice(), ..)
 //            final ToggleButton button = findViewById(R.id.start_stop);
@@ -243,15 +253,15 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             Intent intent = new Intent(INTENT_ACTION_GRANT_USB);
             intent.setPackage(this.getPackageName());
             PendingIntent usbPermissionIntent = PendingIntent.getBroadcast(this, 0, intent, flags);
-            consoleView.append("usb permissions requested");
+            updateConsoleStatus("usb permissions requested");
             manager.requestPermission(driver.getDevice(), usbPermissionIntent);
 //            return;
         }
         if(connection == null) {
             if (!manager.hasPermission(driver.getDevice()))
-                consoleView.append("connection failed: permission denied");
+                updateConsoleStatus("connection failed: permission denied");
             else
-                consoleView.append("connection failed: open failed");
+                updateConsoleStatus("connection failed: open failed");
             return;
         }
 
@@ -261,7 +271,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         try{
             port.open(connection);
             port.setParameters(baud, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
-            consoleView.append("Adapter connected.\n");
+            updateConsoleStatus("Adapter connected.\n");
 
             Date current = new Date();
             SimpleDateFormat dateFileName = new SimpleDateFormat("yyyy-MM-dd_HHmmss");
@@ -271,19 +281,19 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             mSerialIoManager = new SerialInputOutputManager(port, mListener, new FileOutputStream(outputFile));
             mExecutor.submit(mSerialIoManager);
 
-            consoleView.append("\nListening for JPI\nPress STEP now to begin transfer \n");
+            updateConsoleStatus("\nListening for JPI\nPress STEP now to begin transfer \n");
 
 
         } catch (IOException e) {
-            consoleView.append("Connection error\n");
-            consoleView.append(e.getMessage());
+            updateConsoleStatus("Connection error\n");
+            updateConsoleStatus(e.getMessage());
             final ToggleButton button = findViewById(R.id.start_stop);
             button.setChecked(false);
             // Deal with error.
         } finally {
 
 //            try {
-//                consoleView.append("close port");
+//                updateConsoleStatus("close port");
 //                port.close();
 //            } catch (IOException e){
 //                //nothing to see here
@@ -323,7 +333,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         updateConsoleStatus("\nSavvy upload starting\n");
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        S3UploadManager s3UploadManager = new S3UploadManager(queue, (TextView) findViewById(R.id.consoleText), token, aircraft, outputFile);
+        S3UploadManager s3UploadManager = new S3UploadManager(queue, (TextView) findViewById(R.id.consoleText), (ScrollView) findViewById(R.id.scroll), token, aircraft, outputFile);
         s3UploadManager.startUploadProcess();
     }
 
