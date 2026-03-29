@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
