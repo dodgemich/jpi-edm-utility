@@ -5,7 +5,7 @@ updates:
     schedule:
       interval: "weekly" # Options: daily, weekly, monthly
     open-pull-requests-limit: 20
-    groups:
-      all-gradle-dependencies:
-        patterns:
-          - "*"  # Matches every dependency in this ecosystem
+#    groups:
+#      all-gradle-dependencies:
+#        patterns:
+#          - "*"  # Matches every dependency in this ecosystem
