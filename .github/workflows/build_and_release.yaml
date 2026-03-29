@@ -23,6 +23,15 @@ jobs:
           ls -alh
           pwd
 
+      - name: Set Package Version with RunID
+        run: |
+          NEW_ID=$((${{ github.run_id }} + 200))
+          echo "The new ID is $NEW_ID"
+
+          sed -i "s/115/$NEW_ID/g" app/build.gradle
+          sed -i "s/1.15/$NEW_ID/g" app/build.gradle
+          cat app/build.gradle
+
       - name: Build & Sign AAB
         run: gradle bundleRelease # Ensure your build.gradle handles signing via env vars
         env:
