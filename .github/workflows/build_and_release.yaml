@@ -62,7 +62,7 @@ jobs:
         packageName: com.zerotreedelta.jpi.upload
         releaseFiles: app-release.aab
         track: qa
-        status: inProgress
+        #status: inProgress
         #whatsNewDirectory: distribution/whatsnew
         #mappingFile: app/build/outputs/mapping/release/mapping.txt
         #debugSymbols: app/intermediates/merged_native_libs/release/out/lib
