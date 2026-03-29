@@ -3,6 +3,10 @@ on:
   push:
     branches:
       - master
+      - "dependabot/**"  # Triggers on any push to a dependabot branch
+  pull_request:
+    branches:
+      - master
 
 jobs:
   package-signed-aab:
