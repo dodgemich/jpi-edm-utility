@@ -71,3 +71,17 @@ jobs:
         #whatsNewDirectory: distribution/whatsnew
         #mappingFile: app/build/outputs/mapping/release/mapping.txt
         #debugSymbols: app/intermediates/merged_native_libs/release/out/lib
+
+
+  promote-to-production:
+    runs-on: ubuntu-latest
+    environment : Production
+    needs: publish-for-internal-testing
+    steps:
+      - name: Promote to Production
+        uses: kevin-david/promote-play-release@v1
+        with:
+          service-account-json-raw: ${{ secrets.GHA_SERVICE_USER_JSON }}
+          package-name: 'com.zerotreedelta.jpi.upload'
+          from-track: 'internal'
+          to-track: 'production'
