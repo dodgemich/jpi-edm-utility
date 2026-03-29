@@ -61,7 +61,7 @@ jobs:
         serviceAccountJsonPlainText: ${{ secrets.GHA_SERVICE_USER_JSON }}
         packageName: com.zerotreedelta.jpi.upload
         releaseFiles: app-release.aab
-        track: qa
+        track: internal
         #status: inProgress
         #whatsNewDirectory: distribution/whatsnew
         #mappingFile: app/build/outputs/mapping/release/mapping.txt
