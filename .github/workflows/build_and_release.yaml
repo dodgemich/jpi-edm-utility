@@ -25,7 +25,7 @@ jobs:
 
       - name: Set Package Version with RunID
         run: |
-          NEW_ID=$((${{ github.run_id }} + 200))
+          NEW_ID=$((${{ github.run_number }} + 200))
           echo "The new ID is $NEW_ID"
 
           sed -i "s/115/$NEW_ID/g" app/build.gradle
