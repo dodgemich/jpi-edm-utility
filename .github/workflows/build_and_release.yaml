@@ -50,6 +50,7 @@ jobs:
 
   publish-for-internal-testing:
     runs-on: ubuntu-latest
+    depends-on: package-signed-aab
     steps:
     - uses: actions/download-artifact@v8
       with:
