@@ -55,5 +55,14 @@ jobs:
     - uses: actions/download-artifact@v8
       with:
         name: signed-aab
-    - name: Display structure of downloaded files
-      run: ls -R
+
+    - uses: r0adkll/upload-google-play@935ef9c68bb393a8e6116b1575626a7f5be3a7fb
+      with:
+        serviceAccountJsonPlainText: ${{ secrets.GHA_SERVICE_USER_JSON }}
+        packageName: com.zerotreedelta.jpi.upload
+        releaseFiles: app-release.aab
+        track: qa
+        status: inProgress
+        #whatsNewDirectory: distribution/whatsnew
+        #mappingFile: app/build/outputs/mapping/release/mapping.txt
+        #debugSymbols: app/intermediates/merged_native_libs/release/out/lib
