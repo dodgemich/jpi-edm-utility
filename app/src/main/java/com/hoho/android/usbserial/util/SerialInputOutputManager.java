@@ -179,9 +179,11 @@ public class SerialInputOutputManager implements Runnable {
             outputStream.write(byteArr, 0 , len);
             listener.onStatusMessage(".");
 //            listener.onStatusMessage(".");
-//            String fetch = new String(byteArr);
-//            listener.onStatusMessage(fetch);
-//            if(fetch.trim().endsWith("E,4*5D")) {
+           String fetch = new String(byteArr);
+        //    listener.onStatusMessage(fetch);
+           if(fetch.trim().endsWith("E,4*5D")) {
+            listener.onStatusMessage("end");
+           }
 //                mState=State.STOPPING;
 //                if (listener != null) {
 //                    listener.onStatusMessage("Download complete.\n");
