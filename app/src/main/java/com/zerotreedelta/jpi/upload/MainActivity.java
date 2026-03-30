@@ -91,19 +91,19 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
                 @Override
                 public void onCompletion(){
-                    TextView consoleView = (TextView) findViewById(R.id.consoleText);
-                    consoleView.append("ohai");
-                    MainActivity.this.updateConsoleStatus("File saved to : \n"+outputFile.getName()+"\n");
-                    MainActivity.this.updateConsoleStatus("File saved to : \n"+outputFile.getAbsolutePath()+"\n");
-                    try{Thread.sleep(1000);} catch (Exception e){}
+                    // TextView consoleView = (TextView) findViewById(R.id.consoleText);
+                    // consoleView.append("ohai");
+                    // MainActivity.this.updateConsoleStatus("File saved to : \n"+outputFile.getName()+"\n");
+                    // MainActivity.this.updateConsoleStatus("File saved to : \n"+outputFile.getAbsolutePath()+"\n");
+                    // try{Thread.sleep(1000);} catch (Exception e){}
 
                     MainActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             // try {
-                                TextView consoleView = (TextView) findViewById(R.id.consoleText);
-                                consoleView.append("onComplete");
-                                try{Thread.sleep(1000);} catch (Exception e){}
+                                // TextView consoleView = (TextView) findViewById(R.id.consoleText);
+                                // consoleView.append("onComplete");
+                                // try{Thread.sleep(1000);} catch (Exception e){}
                                 // updateConsoleStatus("File saved to : \n"+outputFile.getAbsolutePath()+"\n");
                                 // try{Thread.sleep(5000);} catch (Exception e){}
 
