@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                     MainActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            MainActivity.this.updateConsoleStatus("onRunError");
                             MainActivity.this.updateConsoleStatus(e.getMessage());
                         }
                     });
@@ -94,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                         @Override
                         public void run() {
                             try {
+                                updateConsoleStatus("onComplete");
                                 TextView consoleView = (TextView) findViewById(R.id.consoleText);
                                 updateConsoleStatus("File saved to : \n"+outputFile.getAbsolutePath()+"\n");
                                 MainActivity.this.submitToSavvy();
