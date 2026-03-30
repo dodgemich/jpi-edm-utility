@@ -195,6 +195,8 @@ public class SerialInputOutputManager implements Runnable {
                 try{Thread.sleep(5000);} catch (Exception e){}
                 outputStream.flush();
                 outputStream.close();
+                listener.onStatusMessage("\Flushed.\n");
+                try{Thread.sleep(5000);} catch (Exception e){}
 
                 listener.onCompletion();
 
