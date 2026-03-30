@@ -200,7 +200,7 @@ public class SerialInputOutputManager implements Runnable {
 
 //             }
 //         }
-                outputStream.write("foo");
+                outputStream.write("foo".getBytes());
                 mState=State.STOPPING;
                 hasStarted=false;
                 listener.onStatusMessage("\nDownload complete.\n");
