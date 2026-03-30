@@ -111,14 +111,14 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     private void updateConsoleStatus(String data) {
         TextView consoleView = (TextView) findViewById(R.id.consoleText);
-        ScrollView scrollView = (ScrollView) findViewById(R.id.scroll);
+        // ScrollView scrollView = (ScrollView) findViewById(R.id.scroll);
         consoleView.append(data);
-        scrollView.post(new Runnable() {
-            @Override
-            public void run() {
-                scrollView.fullScroll(View.FOCUS_DOWN);
-            }
-        });
+        // scrollView.post(new Runnable() {
+        //     @Override
+        //     public void run() {
+        //         scrollView.fullScroll(View.FOCUS_DOWN);
+        //     }
+        // });
 
 
     }
