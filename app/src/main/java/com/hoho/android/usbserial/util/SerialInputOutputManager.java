@@ -151,7 +151,7 @@ public class SerialInputOutputManager implements Runnable {
             final Listener listener = getListener();
 
             if (listener != null) {
-                listener.onStatusMessage("\nError streaming serial data:" + e.getMessage + "\n");
+                listener.onStatusMessage("\nError streaming serial data\n");
                 listener.onRunError(e);
             }
         } finally {
