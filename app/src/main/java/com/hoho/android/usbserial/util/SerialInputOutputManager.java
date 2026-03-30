@@ -176,6 +176,7 @@ public class SerialInputOutputManager implements Runnable {
             }
             hasStarted=true;
             outputStream.write(byteArr, 0 , len);
+            listener.onStatusMessage(byteArr);
 //            listener.onStatusMessage(".");
 //            String fetch = new String(byteArr);
 //            listener.onStatusMessage(fetch);
