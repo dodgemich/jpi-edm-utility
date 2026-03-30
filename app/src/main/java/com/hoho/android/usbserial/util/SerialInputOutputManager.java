@@ -175,9 +175,9 @@ public class SerialInputOutputManager implements Runnable {
                 listener.onStatusMessage("\nTransfer started\n");
             }
             hasStarted=true;
-            listener.onStatusMessage("-");
+            // listener.onStatusMessage("-");
             outputStream.write(byteArr, 0 , len);
-            listener.onStatusMessage(".");
+            // listener.onStatusMessage(".");
 //                mState=State.STOPPING;
 //                if (listener != null) {
 //                    listener.onStatusMessage("Download complete.\n");

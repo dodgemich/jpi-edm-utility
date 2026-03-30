@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                                 updateConsoleStatus("onComplete");
                                 TextView consoleView = (TextView) findViewById(R.id.consoleText);
                                 updateConsoleStatus("File saved to : \n"+outputFile.getAbsolutePath()+"\n");
+                                try{Thread.sleep(5000);} catch (Exception e){}
                                 MainActivity.this.submitToSavvy();
                             } catch(IOException e){
 
