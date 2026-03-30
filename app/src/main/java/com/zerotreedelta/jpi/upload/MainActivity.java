@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                             try {
                                 TextView consoleView = (TextView) findViewById(R.id.consoleText);
                                 consoleView.append("onComplete");
-                                try{Thread.sleep(5000);} catch (Exception e){}
+                                try{Thread.sleep(1000);} catch (Exception e){}
                                 // updateConsoleStatus("File saved to : \n"+outputFile.getAbsolutePath()+"\n");
                                 // try{Thread.sleep(5000);} catch (Exception e){}
 
@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             updateConsoleStatus("Adapter found.\n");
         }
 
-// Open a connection to the first available driver.
+        // Open a connection to the first available driver.
         UsbSerialDriver driver = availableDrivers.get(0);
         updateConsoleStatus("Adapter Info: \n");
         updateConsoleStatus("* Manufacturer: "+driver.getDevice().getManufacturerName() +"\n");
@@ -248,14 +248,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         updateConsoleStatus("* Id: "+driver.getDevice().getProductId() +"\n");
 
         UsbDeviceConnection connection = manager.openDevice(driver.getDevice());
-//        if (connection == null) {
-//            updateConsoleStatus("Error connecting\n");
-//            manager.requestPermission(driver.getDevice(), null);
-////            // You probably need to call UsbManager.requestPermission(driver.getDevice(), ..)
-//            final ToggleButton button = findViewById(R.id.start_stop);
-//            button.setChecked(false);
-//            return;
-//        }
 
         if(connection == null && !manager.hasPermission(driver.getDevice())) {
             UsbPermission usbPermission = UsbPermission.Requested;
@@ -265,7 +257,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             PendingIntent usbPermissionIntent = PendingIntent.getBroadcast(this, 0, intent, flags);
             updateConsoleStatus("usb permissions requested");
             manager.requestPermission(driver.getDevice(), usbPermissionIntent);
-//            return;
         }
         if(connection == null) {
             if (!manager.hasPermission(driver.getDevice()))

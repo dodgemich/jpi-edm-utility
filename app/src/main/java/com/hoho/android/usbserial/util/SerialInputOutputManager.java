@@ -204,11 +204,11 @@ public class SerialInputOutputManager implements Runnable {
                 mState=State.STOPPING;
                 hasStarted=false;
                 listener.onStatusMessage("\nDownload complete.\n");
-                try{Thread.sleep(1000);} catch (Exception e){}
+                try{Thread.sleep(100);} catch (Exception e){}
                 outputStream.flush();
                 outputStream.close();
                 listener.onStatusMessage("\nFlushed.\n");
-                try{Thread.sleep(1000);} catch (Exception e){}
+                try{Thread.sleep(100);} catch (Exception e){}
 
                 listener.onCompletion();
 
