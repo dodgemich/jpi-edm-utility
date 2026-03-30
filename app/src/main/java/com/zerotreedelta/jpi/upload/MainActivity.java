@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                     MainActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            try {
+                            // try {
                                 TextView consoleView = (TextView) findViewById(R.id.consoleText);
                                 consoleView.append("onComplete");
                                 try{Thread.sleep(1000);} catch (Exception e){}
@@ -107,9 +107,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                                 // try{Thread.sleep(5000);} catch (Exception e){}
 
                                 // MainActivity.this.submitToSavvy();
-                            } catch(IOException e){
+                            // } catch(IOException e){
 
-                            }
+                            // }
                             final ToggleButton button = findViewById(R.id.start_stop);
                             button.setChecked(false);
                         }
