@@ -192,6 +192,7 @@ public class SerialInputOutputManager implements Runnable {
                 mState=State.STOPPING;
                 hasStarted=false;
                 listener.onStatusMessage("\nDownload complete.\n");
+                Thread.sleep(5000);
                 outputStream.flush();
                 outputStream.close();
 
