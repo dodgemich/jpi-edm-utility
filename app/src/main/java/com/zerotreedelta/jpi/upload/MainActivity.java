@@ -95,6 +95,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                         @Override
                         public void run() {
                             try {
+                                MainActivity.this.updateConsoleStatus("ohai");
+                                try{Thread.sleep(5000);} catch (Exception e){}
                                 TextView consoleView = (TextView) findViewById(R.id.consoleText);
                                 consoleView.append("onComplete");
                                 try{Thread.sleep(5000);} catch (Exception e){}
