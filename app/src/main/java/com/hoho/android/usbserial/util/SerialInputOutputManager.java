@@ -148,10 +148,10 @@ public class SerialInputOutputManager implements Runnable {
             }
         } catch (Exception e) {
             Log.w(TAG, "Run ending due to exception: " + e.getMessage(), e);
-            listener.onStatusMessage("\nError streaming serial data:" + e.getMessage + "\n");
             final Listener listener = getListener();
 
             if (listener != null) {
+                listener.onStatusMessage("\nError streaming serial data:" + e.getMessage + "\n");
                 listener.onRunError(e);
             }
         } finally {
