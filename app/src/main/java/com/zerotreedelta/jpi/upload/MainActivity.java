@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                                 TextView consoleView = (TextView) findViewById(R.id.consoleText);
                                 consoleView.append("onComplete");
                                 try{Thread.sleep(5000);} catch (Exception e){}
-                                MainActivity.this.updateConsoleStatus("File saved to : \n"+outputFile.getAbsolutePath()+"\n");
+                                updateConsoleStatus("File saved to : \n"+outputFile.getAbsolutePath()+"\n");
                                 try{Thread.sleep(5000);} catch (Exception e){}
 
                                 MainActivity.this.submitToSavvy();
