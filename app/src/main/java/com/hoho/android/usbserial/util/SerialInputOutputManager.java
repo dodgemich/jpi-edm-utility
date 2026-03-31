@@ -167,36 +167,36 @@ public class SerialInputOutputManager implements Runnable {
         int len = mDriver.read(byteArr, READ_WAIT_MILLIS);
         final Listener listener = getListener();
 
-        // if (len > 0 ) {
-        //     if(!hasStarted){
-        //         listener.onStatusMessage("\nTransfer started\n");
-        //     }
-        //     hasStarted=true;
-        //     outputStream.write(byteArr, 0 , len);
-        // } else {
-        //     if(!hasStarted) {
-        //         listener.onStatusMessage("~");
-        //     } else {
-        //         mState=State.STOPPING;
-        //         hasStarted=false;
-        //         listener.onStatusMessage("\nDownload complete.\n");
-        //         outputStream.flush();
-        //         outputStream.close();
+        if (len > 0 ) {
+            if(!hasStarted){
+                listener.onStatusMessage("\nTransfer started\n");
+            }
+            hasStarted=true;
+            outputStream.write(byteArr, 0 , len);
+        } else {
+            if(!hasStarted) {
+                listener.onStatusMessage("~");
+            } else {
+                mState=State.STOPPING;
+                hasStarted=false;
+                listener.onStatusMessage("\nDownload complete.\n");
+                outputStream.flush();
+                outputStream.close();
 
-        //         listener.onCompletion();
+                listener.onCompletion();
 
-        //     }
-        // }
+            }
+        }
 
-        listener.onStatusMessage("\nTransfer started\n");
-        outputStream.write("foobar".getBytes());
-        mState=State.STOPPING;
-        hasStarted=false;
-        listener.onStatusMessage("\nDownload complete.\n");
-        outputStream.flush();
-        outputStream.close();
+        // listener.onStatusMessage("\nTransfer started\n");
+        // outputStream.write("foobar".getBytes());
+        // mState=State.STOPPING;
+        // hasStarted=false;
+        // listener.onStatusMessage("\nDownload complete.\n");
+        // outputStream.flush();
+        // outputStream.close();
 
-        listener.onCompletion();
+        // listener.onCompletion();
 
 
     }
