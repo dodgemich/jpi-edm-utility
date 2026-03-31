@@ -79,7 +79,7 @@ jobs:
     needs: publish-for-internal-testing
     steps:
       - name: Promote to Production
-        uses: kevin-david/promote-play-release@v1
+        uses: kevin-david/promote-play-release@d1ed59ca4fd7456b9d8cae062a3684e93b412425
         with:
           service-account-json-raw: ${{ secrets.GHA_SERVICE_USER_JSON }}
           package-name: 'com.zerotreedelta.jpi.upload'
