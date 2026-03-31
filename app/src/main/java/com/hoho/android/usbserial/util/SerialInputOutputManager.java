@@ -151,7 +151,6 @@ public class SerialInputOutputManager implements Runnable {
             final Listener listener = getListener();
 
             if (listener != null) {
-                listener.onStatusMessage("\nError streaming serial data\n");
                 listener.onRunError(e);
             }
         } finally {
@@ -168,49 +167,27 @@ public class SerialInputOutputManager implements Runnable {
         int len = mDriver.read(byteArr, READ_WAIT_MILLIS);
         final Listener listener = getListener();
 
-//         if (len > 0 ) {
-//             if(!hasStarted){
-//                 listener.onStatusMessage("\nTransfer started\n");
-//             }
-//             hasStarted=true;
-//             // listener.onStatusMessage("-");
-//             outputStream.write(byteArr, 0 , len);
-//             // listener.onStatusMessage(".");
-// //                mState=State.STOPPING;
-// //                if (listener != null) {
-// //                    listener.onStatusMessage("Download complete.\n");
-// //                    outputStream.flush();
-// //                    outputStream.close();
-// //                }
-// //            }
-//         } else {
-//             if(!hasStarted) {
-//                 listener.onStatusMessage("~");
-//             } else {
-//                 mState=State.STOPPING;
-//                 hasStarted=false;
-//                 listener.onStatusMessage("\nDownload complete.\n");
-//                 try{Thread.sleep(5000);} catch (Exception e){}
-//                 outputStream.flush();
-//                 outputStream.close();
-//                 listener.onStatusMessage("\nFlushed.\n");
-//                 try{Thread.sleep(5000);} catch (Exception e){}
-
-//                 listener.onCompletion();
-
-//             }
-//         }
-                outputStream.write("foo".getBytes());
+        if (len > 0 ) {
+            if(!hasStarted){
+                listener.onStatusMessage("\nTransfer started\n");
+            }
+            hasStarted=true;
+            outputStream.write(byteArr, 0 , len);
+        } else {
+            if(!hasStarted) {
+                listener.onStatusMessage("~");
+            } else {
                 mState=State.STOPPING;
                 hasStarted=false;
                 listener.onStatusMessage("\nDownload complete.\n");
-                // try{Thread.sleep(100);} catch (Exception e){}
                 outputStream.flush();
                 outputStream.close();
-                listener.onStatusMessage("\nFlushed.\n");
-                // try{Thread.sleep(100);} catch (Exception e){}
 
                 listener.onCompletion();
+
+            }
+        }
+
 
     }
 

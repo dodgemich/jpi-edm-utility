@@ -30,11 +30,10 @@ public class S3UploadManager {
     private String savedSavvyAircraftId;
 
     private TextView consoleView;
-    private ScrollView scrollView;
     private File jpiFile;
     private String fileName;
 
-    public S3UploadManager(RequestQueue queue, TextView consoleView, ScrollView scrollView, String token, String savedSavvyAircraftId, File file) {
+    public S3UploadManager(RequestQueue queue, TextView consoleView, String token, String savedSavvyAircraftId, File file) {
         this.queue = queue;
         this.token = token;
         this.savedSavvyAircraftId = savedSavvyAircraftId;
@@ -255,12 +254,6 @@ public class S3UploadManager {
 
     private void updateConsoleStatus(String data) {
         consoleView.append(data);
-        scrollView.post(new Runnable() {
-            @Override
-            public void run() {
-                scrollView.fullScroll(View.FOCUS_DOWN);
-            }
-        });
     }
 
 
