@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         if(isFast){
             baud = 19200;
         }
-        consoleView.append("\nUsing speed of : "+baud+"\n");
+        consoleView.append("Using speed of : "+baud+"\n");
         consoleView.append("NOTE : JPI must be set to Fast?="+(isFast?"Y":"N")+"\n\n");
 
         // Find all available drivers from attached devices.
