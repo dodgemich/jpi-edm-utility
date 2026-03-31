@@ -100,17 +100,17 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                     MainActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            // try {
+                            try {
                                 // TextView consoleView = (TextView) findViewById(R.id.consoleText);
                                 // consoleView.append("onComplete");
                                 // try{Thread.sleep(1000);} catch (Exception e){}
                                 // updateConsoleStatus("File saved to : \n"+outputFile.getAbsolutePath()+"\n");
                                 // try{Thread.sleep(5000);} catch (Exception e){}
 
-                                // MainActivity.this.submitToSavvy();
-                            // } catch(IOException e){
+                                 MainActivity.this.submitToSavvy();
+                            } catch(IOException e){
 
-                            // }
+                            }
                             final ToggleButton button = findViewById(R.id.start_stop);
                             button.setChecked(false);
                         }
