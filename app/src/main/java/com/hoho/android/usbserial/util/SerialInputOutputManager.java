@@ -167,9 +167,6 @@ public class SerialInputOutputManager implements Runnable {
         int len = mDriver.read(byteArr, READ_WAIT_MILLIS);
         final Listener listener = getListener();
 
-        
-
-
         // if (len > 0 ) {
         //     if(!hasStarted){
         //         listener.onStatusMessage("\nTransfer started\n");
