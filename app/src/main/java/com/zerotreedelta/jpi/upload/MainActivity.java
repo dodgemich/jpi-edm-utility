@@ -143,18 +143,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
 
-
-    // Method to pass value from SharedPreferences
-    private void loadColorFromPreference(SharedPreferences sharedPreferences) {
-//        Log.d("Parzival",sharedPreferences.getString(getString(R.string.pref_color_key),getString(R.string.pref_color_red_value)));
-//        changeTextColor(sharedPreferences.getString(getString(R.string.pref_color_key),getString(R.string.pref_color_red_value)));
-    }
-
-    private void loadSizeFromPreference(SharedPreferences sharedPreferences) {
-//        float minSize = Float.parseFloat(sharedPreferences.getString(getString(R.string.pref_size_key), "16.0"));
-//        changeTextSize(minSize);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();

@@ -68,16 +68,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             String apiToken = (String) newValue;
             verifyApiToken(apiToken);
         }
-//        String tailKey = getString(R.string.pref_savvy_tailnbr_key);
-//        if (preference.getKey().equals(tailKey)) {
-//            String tailNbr = (String) newValue;
-//            if(!"N5503D".equals(tailNbr)){
-//                Toast error = Toast.makeText(getActivity(), "Unable to verify Aircraft", Toast.LENGTH_LONG);
-//                error.show();
-//                return false;
-//            }
-//
-//        }
 
         return true;
     }
